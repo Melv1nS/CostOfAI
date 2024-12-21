@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { MODEL_OPTIONS } from '../constants/models';
 import { HARDWARE_OPTIONS } from '../constants/hardware';
-import { WATER_USAGE_FACTORS, COOLING_SYSTEMS, LOCATION_FACTORS, SEASONAL_FACTORS } from '../constants/water';
+import { COOLING_SYSTEMS, LOCATION_FACTORS, SEASONAL_FACTORS } from '../constants/water';
 
 export default function Methodology() {
   return (
@@ -70,12 +70,13 @@ export default function Methodology() {
                   </div>
 
                   <div className="bg-gray-900/50 rounded-lg p-4 mt-4">
-                    <h4 className="text-lg font-medium text-blue-400 mb-2">Estimation Formula</h4>
-                    <p className="text-gray-300">Final estimate = Input tokens × Base multiplier × √(Model size factor) × Energy multiplier</p>
+                    <h4 className="text-lg font-medium text-blue-400 mb-2">Enhanced Estimation Formula</h4>
+                    <p className="text-gray-300">Energy consumption = (Active Power × Utilization + Memory Power × Memory Utilization + Idle Power) × Processing Time × Hardware Age Factor</p>
                     <ul className="list-disc list-inside ml-4 mt-2 space-y-1 text-gray-400">
-                      <li>Bounded between 50 tokens minimum</li>
-                      <li>Maximum of 50% of model's context window</li>
-                      <li>Includes confidence intervals based on task complexity</li>
+                      <li>Considers memory bandwidth constraints</li>
+                      <li>Accounts for hardware age degradation</li>
+                      <li>Includes batch processing efficiency</li>
+                      <li>Factors in memory utilization impact</li>
                     </ul>
                   </div>
                 </div>
@@ -83,9 +84,11 @@ export default function Methodology() {
                 <p className="mt-4">This multi-factor approach provides more accurate estimates while acknowledging the inherent uncertainty in predicting AI model outputs.</p>
                 
                 <h3 className="text-xl font-medium">Energy & Water Consumption</h3>
-                <p>Our calculations consider both energy consumption and associated water usage in data centers:</p>
+                <p>Our calculations consider hardware specifications, memory constraints, and environmental factors:</p>
                 <ul className="list-disc list-inside ml-4 space-y-2">
-                  <li>Direct energy consumption factors</li>
+                  <li>Hardware performance characteristics</li>
+                  <li>Memory bandwidth limitations</li>
+                  <li>Age-based performance degradation</li>
                   <li>Cooling system efficiency (0.85-0.95)</li>
                   <li>Geographic location impact (0.8-1.5x multiplier)</li>
                   <li>Seasonal variations (0.8-1.4x multiplier)</li>
@@ -138,6 +141,51 @@ export default function Methodology() {
                   </div>
                 </div>
               </div>
+
+              <div className="mt-6 p-4 bg-gray-900/50 rounded-lg border border-gray-700">
+                <h4 className="text-lg font-medium text-blue-400 mb-2">Hardware Performance Factors</h4>
+                <p className="text-gray-300 mb-3">Our calculations now incorporate detailed hardware specifications and limitations:</p>
+                <div className="grid grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="text-purple-400 mb-2">Performance Metrics</h5>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-center gap-2 text-gray-300">
+                        <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                        Memory Bandwidth: 320-5300 GB/s
+                      </li>
+                      <li className="flex items-center gap-2 text-gray-300">
+                        <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                        Age Degradation: 0-10% yearly
+                      </li>
+                      <li className="flex items-center gap-2 text-gray-300">
+                        <span className="w-2 h-2 bg-pink-400 rounded-full"></span>
+                        Batch Processing Efficiency
+                      </li>
+                      <li className="flex items-center gap-2 text-gray-300">
+                        <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+                        Memory Utilization Impact
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="text-purple-400 mb-2">Power Components</h5>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-center gap-2 text-gray-300">
+                        <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                        Core Processing (TDP)
+                      </li>
+                      <li className="flex items-center gap-2 text-gray-300">
+                        <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                        Memory Power Draw
+                      </li>
+                      <li className="flex items-center gap-2 text-gray-300">
+                        <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                        Idle Power Consumption
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </section>
           </div>
 
@@ -184,16 +232,53 @@ export default function Methodology() {
                 </svg>
                 Hardware Specifications
               </h2>
-              <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {HARDWARE_OPTIONS.map((hw) => (
-                  <div key={hw.name} className="p-4 bg-gray-900/50 rounded-lg border border-gray-700">
-                    <h4 className="font-medium text-gray-100 mb-2">{hw.name}</h4>
-                    <ul className="space-y-1 text-sm">
-                      <li className="text-gray-300">TDP: {hw.tdp}W</li>
-                      <li className="text-gray-300">Inference: {hw.inferenceSpeed} tokens/s</li>
-                      <li className="text-gray-300">Memory Power: {hw.memoryPower}W</li>
-                      <li className="text-gray-300">Idle: {hw.idlePower}W</li>
-                    </ul>
+                  <div 
+                    key={hw.name} 
+                    className="p-6 bg-gray-900/50 rounded-lg border border-gray-700 hover:border-gray-600 transition-colors"
+                  >
+                    <h4 className="text-lg font-medium text-gray-100 mb-4 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                      {hw.name}
+                    </h4>
+                    
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                      <div className="text-gray-400 text-sm">TDP:</div>
+                      <div className="text-gray-200">{hw.tdp}W</div>
+                      
+                      <div className="text-gray-400 text-sm">Inference Speed:</div>
+                      <div className="text-gray-200">{hw.inferenceSpeed.toLocaleString()} tokens/s</div>
+                      
+                      <div className="text-gray-400 text-sm">Memory Power:</div>
+                      <div className="text-gray-200">{hw.memoryPower}W</div>
+                      
+                      <div className="text-gray-400 text-sm">Idle Power:</div>
+                      <div className="text-gray-200">{hw.idlePower}W</div>
+                      
+                      <div className="text-gray-400 text-sm">Memory Bandwidth:</div>
+                      <div className="text-gray-200">{hw.memoryBandwidth.toLocaleString()} GB/s</div>
+                      
+                      <div className="text-gray-400 text-sm">Release Year:</div>
+                      <div className="text-gray-200">{hw.yearReleased}</div>
+                      
+                      <div className="text-gray-400 text-sm">Performance Factor:</div>
+                      <div className="text-gray-200">{hw.performanceDegradation}x</div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-gray-700/50">
+                      <div className="text-sm text-gray-400">Relative Performance</div>
+                      <div className="mt-2 h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-green-500 to-green-400" 
+                          style={{ 
+                            width: `${(hw.inferenceSpeed / 2000) * 100}%`,
+                            opacity: hw.performanceDegradation
+                          }}
+                        ></div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>

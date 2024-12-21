@@ -6,6 +6,9 @@ export interface HardwareSpec {
     inferenceSpeed: number;  // tokens per second
     memoryPower: number;  // Memory power consumption in watts
     idlePower: number;  // Idle power consumption in watts
+    memoryBandwidth: number;  // Memory bandwidth in GB/s
+    yearReleased: number;  // Year the hardware was released
+    performanceDegradation: number;  // Performance degradation per year
   }
 
 export interface CalculationParams {
