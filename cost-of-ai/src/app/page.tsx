@@ -17,6 +17,8 @@ import EnergyComparison from './components/EnergyComparison';
 import WaterComparison from './components/WaterComparison';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import PresetSelector from './components/PresetSelector';
+import { PRESETS, PresetName } from './constants/presets';
 
 export default function Home() {
   const [params, setParams] = useState<CalculationParams>({
@@ -36,6 +38,15 @@ export default function Home() {
   const [waterUsage, setWaterUsage] = useState<number | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [tokenEstimation, setTokenEstimation] = useState<{
+    confidence: 'low' | 'medium' | 'high';
+    lowerBound: number;
+    upperBound: number;
+  }>({
+    confidence: 'medium',
+    lowerBound: 0,
+    upperBound: 0
+  });
 
   const calculateEnergyUsage = async () => {
     setIsCalculating(true);
@@ -61,12 +72,28 @@ export default function Home() {
       
       setEnergyUsage(data.energyUsage);
       setWaterUsage(data.waterUsage);
+      setTokenEstimation({
+        confidence: data.confidence,
+        lowerBound: data.lowerBound,
+        upperBound: data.upperBound
+      });
       setShowResults(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       console.error('Error calculating energy usage:', error);
       // You might want to add error state handling here
     } finally {
       setIsCalculating(false);
+    }
+  };
+
+  const handlePresetSelect = (presetName: PresetName) => {
+    if (presetName) {
+      const preset = PRESETS[presetName];
+      setParams(prev => ({
+        ...prev,
+        ...preset
+      }));
     }
   };
 
@@ -96,6 +123,8 @@ export default function Home() {
             </div>
             
             <div className="bg-gray-800 rounded-xl shadow-lg p-6 space-y-8">
+              <PresetSelector onPresetSelect={handlePresetSelect} />
+              
               {/* Prompt Section */}
               <div className="space-y-6">
                 <h2 className="text-xl font-semibold text-gray-100">Input Text</h2>
@@ -257,9 +286,9 @@ export default function Home() {
               waterUsage={waterUsage!}
               totalTokens={params.prompt.split(' ').length + params.estimatedResponseTokens} 
               estimatedResponseTokens={params.estimatedResponseTokens}
-              confidence="medium"
-              lowerBound={0}
-              upperBound={0}
+              confidence={tokenEstimation.confidence}
+              lowerBound={tokenEstimation.lowerBound}
+              upperBound={tokenEstimation.upperBound}
             />
             <EnergyComparison energyUsage={energyUsage!} />
             <WaterComparison waterUsage={waterUsage!} />

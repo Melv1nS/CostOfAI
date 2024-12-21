@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { WATER_COMPARISONS } from '../constants/water';
 
@@ -21,8 +21,8 @@ export default function WaterComparison({ waterUsage }: WaterComparisonProps) {
     setIsVisible(true);
   }, [waterUsage]);
 
-  // Scale up for more meaningful comparisons
-  const scaleFactor = 1000; // Show impact of 1000 requests
+  // Scale for single request comparison
+  const scaleFactor = 1; // Show impact of 1 request
   const scaledWaterUsage = waterUsage * scaleFactor;
 
   const getDecimalPlaces = (comparison: WaterComparison) => {
@@ -41,7 +41,7 @@ export default function WaterComparison({ waterUsage }: WaterComparisonProps) {
         Water Usage Comparisons
       </motion.h3>
       <p className="text-gray-400 mb-4">
-        Making this same request 1,000 times uses the same amount of water as:
+        Making this request uses the same amount of water as:
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {WATER_COMPARISONS.map((comparison, index) => (

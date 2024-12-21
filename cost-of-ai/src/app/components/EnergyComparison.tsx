@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 interface EnergyComparisonProps {
@@ -12,9 +12,9 @@ const EnergyComparison = ({ energyUsage }: EnergyComparisonProps) => {
     setIsVisible(true);
   }, [energyUsage]);
 
-  // Convert joules to watt-hours and scale up for more meaningful comparisons
+  // Convert joules to watt-hours for more meaningful comparisons
   const wattHours = energyUsage / 3600; // Convert joules to watt-hours
-  const scaleFactor = 1000; // Show impact of 1000 requests
+  const scaleFactor = 1; // Show impact of 1 request
   const scaledWattHours = wattHours * scaleFactor;
   
   const comparisons = [
@@ -48,7 +48,7 @@ const EnergyComparison = ({ energyUsage }: EnergyComparisonProps) => {
         Energy Usage Comparisons
       </motion.h3>
       <p className="text-gray-400 mb-4">
-        Making this same request 1,000 times uses the same energy as:
+        Making this request uses the same energy as:
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {comparisons.map((comparison, index) => (

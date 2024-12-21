@@ -34,7 +34,7 @@ export default function ResultsDisplay({
           </div>
           <p className="text-xl font-bold text-gray-100">{estimatedResponseTokens.toLocaleString()} tokens</p>
           <p className="text-sm text-gray-400">
-            Range: {lowerBound.toLocaleString()} - {upperBound.toLocaleString()} tokens
+            Range: {Math.round(lowerBound).toLocaleString()} - {Math.round(upperBound).toLocaleString()} tokens
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function ResultsDisplay({
           </div>
           <div className="bg-gray-700 p-4 rounded-lg">
             <p className="text-sm text-gray-400">Per Token</p>
-            <p className="text-xl font-bold text-gray-100">{(energyUsage / totalTokens).toFixed(4)} joules</p>
+            <p className="text-xl font-bold text-gray-100">{(energyUsage / totalTokens).toFixed(2)} joules</p>
             <p className="text-sm text-gray-400">({(waterUsage / totalTokens).toFixed(6)} L)</p>
           </div>
         </div>

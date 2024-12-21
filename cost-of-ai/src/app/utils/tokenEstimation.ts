@@ -64,8 +64,11 @@ export function estimateResponseTokens(
   const baseEstimate = Math.round(inputTokens * multiplier);
 
   // Calculate confidence intervals
-  const lowerBound = Math.max(50, Math.round(baseEstimate * (1 - variance)));
-  const upperBound = Math.min(model.contextWindow / 2, Math.round(baseEstimate * (1 + variance)));
+  const rawLowerBound = Math.round(baseEstimate * (1 - variance));
+  const rawUpperBound = Math.round(baseEstimate * (1 + variance));
+
+  const lowerBound = Math.max(50, rawLowerBound);
+  const upperBound = Math.max(lowerBound, Math.min(model.contextWindow / 2, rawUpperBound));
 
   // Final bounded estimate
   const estimatedTokens = Math.max(
