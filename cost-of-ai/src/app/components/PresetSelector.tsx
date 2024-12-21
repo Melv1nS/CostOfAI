@@ -11,7 +11,6 @@ export default function PresetSelector({ onPresetSelect }: PresetSelectorProps) 
     codingTasks: "Configured for code generation and review with higher compute power",
     contentCreation: "Balanced setup for creative writing and content generation",
     batchProcessing: "High-performance configuration for processing multiple requests",
-    ecoFriendly: "Energy-efficient setup using smaller models and efficient cooling",
     translation: "Optimized for language translation tasks",
     dataAnalysis: "Configured for processing and analyzing large datasets",
     chatbot: "Efficient setup for interactive chat applications",

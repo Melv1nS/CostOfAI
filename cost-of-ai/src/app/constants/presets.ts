@@ -51,19 +51,6 @@ export const PRESETS = {
       season: "WINTER" as const
     },
   
-    ecoFriendly: {
-      prompt: "What are three practical ways to reduce household energy consumption?",
-      selectedHardware: "NVIDIA L4",
-      selectedModel: "Mistral 7B",
-      utilizationFactor: 0.7,
-      pue: 1.1,
-      batchSize: 8,
-      gpuCount: 1,
-      coolingSystem: "FREE_COOLING" as const,
-      location: "COLD" as const,
-      season: "SPRING" as const
-    },
-  
     translation: {
       prompt: "Translate this text to Spanish: 'Hello, how are you?'",
       selectedHardware: "NVIDIA A40",
