@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 interface EnergyComparisonProps {
@@ -39,7 +39,14 @@ const EnergyComparison = ({ energyUsage }: EnergyComparisonProps) => {
 
   return (
     <div className="bg-gray-800 rounded-xl shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-100 mb-2">Energy Usage Comparisons</h3>
+      <motion.h3 
+        className="text-xl font-semibold text-gray-100 mb-2"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Energy Usage Comparisons
+      </motion.h3>
       <p className="text-gray-400 mb-4">
         Making this same request 1,000 times uses the same energy as:
       </p>
@@ -50,21 +57,12 @@ const EnergyComparison = ({ energyUsage }: EnergyComparisonProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: index * 0.2 }}
-            className="bg-gray-700 rounded-lg p-4 text-center"
+            whileHover={{ scale: 1.05 }}
+            className="bg-gray-700 rounded-lg p-4 text-center relative overflow-hidden"
           >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={isVisible ? { scale: 1 } : {}}
-              transition={{ 
-                type: "spring",
-                delay: index * 0.2 + 0.3,
-                stiffness: 200,
-                damping: 10
-              }}
-              className="text-4xl mb-2"
-            >
+            <div className="text-4xl mb-2">
               {comparison.icon}
-            </motion.div>
+            </div>
             <h4 className="text-gray-200 font-medium mb-2">{comparison.item}</h4>
             <p className="text-gray-400">
               {comparison.duration ? 

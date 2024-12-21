@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { WATER_COMPARISONS } from '../constants/water';
 
@@ -26,13 +26,20 @@ export default function WaterComparison({ waterUsage }: WaterComparisonProps) {
   const scaledWaterUsage = waterUsage * scaleFactor;
 
   const getDecimalPlaces = (comparison: WaterComparison) => {
-    // Use 3 decimal places for showers, 1 for everything else
-    return comparison.item === "Shower" ? 3 : 1;
+    // Use 3 decimal places for showers and dishwasher loads, 1 for everything else
+    return comparison.item === "Shower" || comparison.item === "Dishwasher Load" ? 3 : 1;
   };
 
   return (
     <div className="bg-gray-800 rounded-xl shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-100 mb-2">Water Usage Comparisons</h3>
+      <motion.h3 
+        className="text-xl font-semibold text-gray-100 mb-2"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Water Usage Comparisons
+      </motion.h3>
       <p className="text-gray-400 mb-4">
         Making this same request 1,000 times uses the same amount of water as:
       </p>
@@ -43,9 +50,12 @@ export default function WaterComparison({ waterUsage }: WaterComparisonProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: index * 0.2 }}
-            className="bg-gray-700 rounded-lg p-4 text-center"
+            whileHover={{ scale: 1.05 }}
+            className="bg-gray-700 rounded-lg p-4 text-center relative overflow-hidden"
           >
-            <div className="text-4xl mb-2">{comparison.icon}</div>
+            <div className="text-4xl mb-2">
+              {comparison.icon}
+            </div>
             <h4 className="text-gray-200 font-medium mb-2">{comparison.item}</h4>
             <p className="text-gray-400">
               {(scaledWaterUsage / comparison.amount).toFixed(getDecimalPlaces(comparison))} {comparison.unit || comparison.item.toLowerCase()}

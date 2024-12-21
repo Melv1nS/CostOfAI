@@ -25,4 +25,7 @@ export interface CalculationParams {
 export interface TokenEstimate {
     estimatedTokens: number;
     confidence: 'low' | 'medium' | 'high';
+    lowerBound: number;
+    upperBound: number;
 }
+

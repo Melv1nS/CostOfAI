@@ -254,8 +254,12 @@ export default function Home() {
             
             <ResultsDisplay 
               energyUsage={energyUsage!} 
-              totalTokens={params.prompt.split(' ').length + params.estimatedResponseTokens} 
               waterUsage={waterUsage!}
+              totalTokens={params.prompt.split(' ').length + params.estimatedResponseTokens} 
+              estimatedResponseTokens={params.estimatedResponseTokens}
+              confidence="medium"
+              lowerBound={0}
+              upperBound={0}
             />
             <EnergyComparison energyUsage={energyUsage!} />
             <WaterComparison waterUsage={waterUsage!} />

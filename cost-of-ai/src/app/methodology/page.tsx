@@ -33,10 +33,54 @@ export default function Methodology() {
               </h2>
               <div className="text-gray-300 space-y-4">
                 <h3 className="text-xl font-medium">Token Estimation</h3>
-                <p>We estimate the number of tokens in your prompt using a standard tokenization approach that approximates common tokenizer behavior. This helps us understand the computational workload required for processing your input.</p>
+                <p>We use the GPT tokenizer to accurately count tokens in your prompt, matching the same tokenization algorithm used by OpenAI models. This provides a precise measurement of the computational workload required for processing your input.</p>
                 
                 <h3 className="text-xl font-medium">Response Length Prediction</h3>
-                <p>Based on historical data and model characteristics, we predict the likely response length for your specific prompt and chosen model. This prediction considers factors such as prompt length and model behavior patterns.</p>
+                <p>Our response length prediction uses a sophisticated analysis system that considers both prompt patterns and model characteristics:</p>
+                
+                <div className="space-y-4 mt-4">
+                  <div>
+                    <h4 className="text-lg font-medium text-blue-400">Prompt Pattern Analysis</h4>
+                    <ul className="list-disc list-inside ml-4 space-y-2">
+                      <li>Coding tasks (4.0x multiplier) - prompts starting with write/create/implement/debug/fix/code/program</li>
+                      <li>Creative writing (5.0x multiplier) - prompts for stories, narratives, or creative descriptions</li>
+                      <li>Analysis tasks (3.0x multiplier) - prompts starting with analyze/evaluate/compare/assess</li>
+                      <li>Questions (2.0x multiplier) - prompts ending with "?"</li>
+                      <li>Summaries (0.5x multiplier) - prompts starting with summarize/tldr/summary</li>
+                      <li>Other prompts (1.5x default multiplier)</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg font-medium text-purple-400">Model-Specific Factors</h4>
+                    <ul className="list-disc list-inside ml-4 space-y-2">
+                      <li>Model size impact (scaled relative to GPT-3.5's 175B parameters)</li>
+                      <li>Energy characteristics correlation with output length</li>
+                      <li>Context window limitations</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h4 className="text-lg font-medium text-green-400">Confidence Levels</h4>
+                    <ul className="list-disc list-inside ml-4 space-y-2">
+                      <li>High confidence (±10-20% variance) for well-defined tasks like summaries and questions</li>
+                      <li>Medium confidence (±30-40% variance) for coding and analysis tasks</li>
+                      <li>Low confidence (±50% variance) for creative and open-ended tasks</li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-gray-900/50 rounded-lg p-4 mt-4">
+                    <h4 className="text-lg font-medium text-blue-400 mb-2">Estimation Formula</h4>
+                    <p className="text-gray-300">Final estimate = Input tokens × Base multiplier × √(Model size factor) × Energy multiplier</p>
+                    <ul className="list-disc list-inside ml-4 mt-2 space-y-1 text-gray-400">
+                      <li>Bounded between 50 tokens minimum</li>
+                      <li>Maximum of 50% of model's context window</li>
+                      <li>Includes confidence intervals based on task complexity</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <p className="mt-4">This multi-factor approach provides more accurate estimates while acknowledging the inherent uncertainty in predicting AI model outputs.</p>
                 
                 <h3 className="text-xl font-medium">Energy & Water Consumption</h3>
                 <p>Our calculations consider both energy consumption and associated water usage in data centers:</p>

@@ -4,6 +4,7 @@ import { MODEL_OPTIONS } from '@/app/constants/models';
 import { estimateResponseTokens } from '@/app/utils/tokenEstimation';
 import type { CalculationParams } from '@/app/types';
 import { calculateWaterUsage, adjustWaterUsageForPUE } from '@/app/utils/waterUsage';
+import { encode } from 'gpt-tokenizer';
 
 export async function POST(request: Request) {
   try {
@@ -19,8 +20,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const { estimatedTokens } = estimateResponseTokens(params.prompt);
-    const promptTokens = params.prompt.split(' ').length;
+    const { estimatedTokens, confidence, lowerBound, upperBound } = estimateResponseTokens(params.prompt, params.selectedModel);
+    const promptTokens = encode(params.prompt).length;
     const totalTokens = promptTokens + estimatedTokens;
     
     const batchEfficiencyFactor = Math.sqrt(params.batchSize);
@@ -43,9 +44,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       energyUsage: energy,
-      waterUsage: waterUsage,
+      waterUsage: baseWaterUsage,
+      totalTokens,
       estimatedResponseTokens: estimatedTokens,
-      totalTokens: totalTokens
+      confidence,
+      lowerBound,
+      upperBound
     });
   } catch (error) {
     return NextResponse.json(

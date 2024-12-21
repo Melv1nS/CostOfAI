@@ -80,16 +80,16 @@ export const WATER_COMPARISONS = [
         unit: "glasses"
     },
     {
-        item: "Shower",
-        amount: 65,  // liters per shower
-        icon: "🚿",
-        unit: "showers"
-    },
-    {
         item: "Dishwasher Load",
         amount: 15,  // liters
         icon: "🍽️",
         unit: "loads"
+    },
+    {
+        item: "Shower",
+        amount: 65,  // liters per shower
+        icon: "🚿",
+        unit: "showers"
     }
 ];
 
