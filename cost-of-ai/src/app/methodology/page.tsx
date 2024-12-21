@@ -32,71 +32,106 @@ export default function Methodology() {
                 Calculation Process
               </h2>
               <div className="text-gray-300 space-y-4">
-                <h3 className="text-xl font-medium">Token Estimation</h3>
-                <p>We use the GPT tokenizer to accurately count tokens in your prompt, matching the same tokenization algorithm used by OpenAI models. This provides a precise measurement of the computational workload required for processing your input.</p>
+                <h3 className="text-xl font-medium">How We Calculate AI Resource Usage</h3>
                 
-                <h3 className="text-xl font-medium">Response Length Prediction</h3>
-                <p>Our response length prediction uses a sophisticated analysis system that considers both prompt patterns and model characteristics:</p>
-                
-                <div className="space-y-4 mt-4">
+                <div className="space-y-6">
+                  {/* Token Estimation Section */}
                   <div>
-                    <h4 className="text-lg font-medium text-blue-400">Prompt Pattern Analysis</h4>
-                    <ul className="list-disc list-inside ml-4 space-y-2">
-                      <li>Coding tasks (4.0x multiplier) - prompts starting with write/create/implement/debug/fix/code/program</li>
-                      <li>Creative writing (5.0x multiplier) - prompts for stories, narratives, or creative descriptions</li>
-                      <li>Analysis tasks (3.0x multiplier) - prompts starting with analyze/evaluate/compare/assess</li>
-                      <li>Questions (2.0x multiplier) - prompts ending with "?"</li>
-                      <li>Summaries (0.5x multiplier) - prompts starting with summarize/tldr/summary</li>
-                      <li>Other prompts (1.5x default multiplier)</li>
-                    </ul>
+                    <h4 className="text-lg font-medium text-blue-400">1. Predicting Response Length</h4>
+                    <p className="mb-3">We analyze your prompt to estimate how many tokens (word pieces) the AI will use in its response:</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-gray-900/50 rounded-lg p-4">
+                        <h5 className="font-medium mb-2">Task-Based Estimates</h5>
+                        <ul className="list-disc list-inside ml-4 space-y-2">
+                          <li>Code generation: 4x input length (medium confidence)</li>
+                          <li>Creative writing: 5x input length (low confidence)</li>
+                          <li>Analysis tasks: 3x input length (medium confidence)</li>
+                          <li>Simple questions: 2x input length (high confidence)</li>
+                          <li>Summaries: 0.5x input length (high confidence)</li>
+                        </ul>
+                      </div>
+
+                      <div className="bg-gray-900/50 rounded-lg p-4">
+                        <h5 className="font-medium mb-2">Specialized Tasks</h5>
+                        <ul className="list-disc list-inside ml-4 space-y-2">
+                          <li>Translation: 1.5x input length (high confidence)</li>
+                          <li>Data analysis: 4.5x input length (medium confidence)</li>
+                          <li>Customer service: 2.5x input length (medium confidence)</li>
+                          <li>Research: 6x input length (low confidence)</li>
+                        </ul>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 bg-blue-900/20 rounded-lg p-4 border border-blue-800/50">
+                      <h5 className="font-medium mb-2">Confidence Levels</h5>
+                      <ul className="space-y-2">
+                        <li><span className="text-green-400">High confidence:</span> Predictable tasks like translation (±20% variance)</li>
+                        <li><span className="text-yellow-400">Medium confidence:</span> Technical tasks like coding (±30-40% variance)</li>
+                        <li><span className="text-red-400">Low confidence:</span> Open-ended tasks like research (±50% variance)</li>
+                      </ul>
+                    </div>
                   </div>
 
+                  {/* Energy Calculation Section */}
                   <div>
-                    <h4 className="text-lg font-medium text-purple-400">Model-Specific Factors</h4>
-                    <ul className="list-disc list-inside ml-4 space-y-2">
-                      <li>Model size impact (scaled relative to GPT-3.5's 175B parameters)</li>
-                      <li>Energy characteristics correlation with output length</li>
-                      <li>Context window limitations</li>
-                    </ul>
+                    <h4 className="text-lg font-medium text-purple-400">2. Computing Energy Usage</h4>
+                    <p className="mb-3">Energy consumption is calculated using three main components:</p>
+
+                    <div className="bg-gray-900/50 rounded-lg p-4">
+                      <h5 className="font-medium mb-2">Base Power Usage</h5>
+                      <ul className="list-disc list-inside ml-4 space-y-1">
+                        <li>Active GPU power (70W - 700W)</li>
+                        <li>Memory power consumption (25W - 120W)</li>
+                        <li>Idle system power (15W - 150W)</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-gray-900/50 rounded-lg p-4 mt-3">
+                      <h5 className="font-medium mb-2">Efficiency Factors</h5>
+                      <ul className="list-disc list-inside ml-4 space-y-1">
+                        <li>Batch processing efficiency (larger batches = better efficiency)</li>
+                        <li>Hardware age impact (0-10% yearly degradation)</li>
+                        <li>Memory bandwidth limitations</li>
+                        <li>Data center efficiency (PUE: 1.1-1.6)</li>
+                      </ul>
+                    </div>
                   </div>
 
+                  {/* Water Usage Section */}
                   <div>
-                    <h4 className="text-lg font-medium text-green-400">Confidence Levels</h4>
-                    <ul className="list-disc list-inside ml-4 space-y-2">
-                      <li>High confidence (±10-20% variance) for well-defined tasks like summaries and questions</li>
-                      <li>Medium confidence (±30-40% variance) for coding and analysis tasks</li>
-                      <li>Low confidence (±50% variance) for creative and open-ended tasks</li>
-                    </ul>
+                    <h4 className="text-lg font-medium text-green-400">3. Estimating Water Usage</h4>
+                    <p className="mb-3">Water consumption is calculated based on cooling requirements:</p>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-gray-900/50 rounded-lg p-4">
+                        <h5 className="font-medium mb-2">Base Factors</h5>
+                        <ul className="list-disc list-inside ml-4 space-y-1">
+                          <li>Air cooling: 1.8L per kWh</li>
+                          <li>Water cooling: 2.2L per kWh</li>
+                          <li>Hybrid systems: 1.9L per kWh</li>
+                          <li>Free cooling: 1.5L per kWh</li>
+                        </ul>
+                      </div>
+
+                      <div className="bg-gray-900/50 rounded-lg p-4">
+                        <h5 className="font-medium mb-2">Environmental Adjustments</h5>
+                        <ul className="list-disc list-inside ml-4 space-y-1">
+                          <li>Location: ±50% (hot vs cold climates)</li>
+                          <li>Season: ±40% (summer vs winter)</li>
+                          <li>Cooling efficiency: 85-95%</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="bg-gray-900/50 rounded-lg p-4 mt-4">
-                    <h4 className="text-lg font-medium text-blue-400 mb-2">Enhanced Estimation Formula</h4>
-                    <p className="text-gray-300">Energy consumption = (Active Power × Utilization + Memory Power × Memory Utilization + Idle Power) × Processing Time × Hardware Age Factor</p>
-                    <ul className="list-disc list-inside ml-4 mt-2 space-y-1 text-gray-400">
-                      <li>Considers memory bandwidth constraints</li>
-                      <li>Accounts for hardware age degradation</li>
-                      <li>Includes batch processing efficiency</li>
-                      <li>Factors in memory utilization impact</li>
-                    </ul>
+                  <div className="bg-blue-900/20 rounded-lg p-4 border border-blue-800/50">
+                    <h4 className="text-lg font-medium text-blue-400 mb-2">Understanding the Results</h4>
+                    <p>Our calculations provide estimates based on real-world hardware specifications and environmental factors. While exact usage may vary, these estimates help understand the environmental impact of AI operations and identify opportunities for optimization.</p>
                   </div>
                 </div>
-                
-                <p className="mt-4">This multi-factor approach provides more accurate estimates while acknowledging the inherent uncertainty in predicting AI model outputs.</p>
-                
-                <h3 className="text-xl font-medium">Energy & Water Consumption</h3>
-                <p>Our calculations consider hardware specifications, memory constraints, and environmental factors:</p>
-                <ul className="list-disc list-inside ml-4 space-y-2">
-                  <li>Hardware performance characteristics</li>
-                  <li>Memory bandwidth limitations</li>
-                  <li>Age-based performance degradation</li>
-                  <li>Cooling system efficiency (0.85-0.95)</li>
-                  <li>Geographic location impact (0.8-1.5x multiplier)</li>
-                  <li>Seasonal variations (0.8-1.4x multiplier)</li>
-                  <li>Data center PUE impact</li>
-                  <li>Water usage per kWh (1.5-2.2L)</li>
-                </ul>
               </div>
-              
+
               <div className="mt-6 p-4 bg-gray-900/50 rounded-lg border border-gray-700">
                 <h4 className="text-lg font-medium text-blue-400 mb-2">Environmental Factors</h4>
                 <p className="text-gray-300 mb-3">Our calculations incorporate both energy and water-related variables:</p>

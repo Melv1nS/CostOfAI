@@ -22,10 +22,14 @@ export function estimateResponseTokens(
   // Enhanced prompt analysis patterns
   const promptPatterns = {
     coding: /^(write|create|implement|debug|fix|code|program|function|class)/i,
-    creative: /^(write.*story|compose|create.*narrative|imagine|describe.*scene)/i,
+    creative: /^(write.*story|compose|create.*narrative|imagine|describe.*scene|write.*blog|write.*post)/i,
     analysis: /^(analyze|evaluate|compare|assess|review|examine)/i,
     question: /\?$/,
-    summary: /^(summarize|tldr|summary)/i
+    summary: /^(summarize|tldr|summary)/i,
+    translation: /^(translate|convert.*to|change.*to.*language)/i,
+    dataAnalysis: /(dataset|csv|data.*analysis|\d{4}.*,.*Q[1-4]|analyze.*data)/i,
+    customerService: /(customer.*service|support|help desk|inquiry|complaint)/i,
+    research: /(research|comprehensive.*analysis|literature.*review|scientific|papers|citations)/i
   };
 
   // Determine prompt type and base multiplier
@@ -45,6 +49,22 @@ export function estimateResponseTokens(
     multiplier = 3.0;
     confidence = 'medium';
     variance = 0.3;
+  } else if (promptPatterns.translation.test(cleanPrompt)) {
+    multiplier = 1.5;
+    confidence = 'high';
+    variance = 0.2;
+  } else if (promptPatterns.dataAnalysis.test(cleanPrompt)) {
+    multiplier = 4.5;
+    confidence = 'medium';
+    variance = 0.4;
+  } else if (promptPatterns.customerService.test(cleanPrompt)) {
+    multiplier = 2.5;
+    confidence = 'medium';
+    variance = 0.3;
+  } else if (promptPatterns.research.test(cleanPrompt)) {
+    multiplier = 6.0;
+    confidence = 'low';
+    variance = 0.5;
   } else if (promptPatterns.question.test(cleanPrompt)) {
     multiplier = 2.0;
     confidence = 'high';
