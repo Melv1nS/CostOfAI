@@ -85,6 +85,7 @@ export default function Home() {
                 <FontAwesomeIcon icon={faCalculator} className="mr-2" />
                 LLM Resource Calculator
               </h1>
+              <p className="text-gray-400">Ever wondered how much energy ChatGPT uses for a single response?</p>
               <p className="text-gray-400">Calculate the energy and water consumption of Large Language Models</p>
               <Link 
                 href="/methodology" 
@@ -141,7 +142,7 @@ export default function Home() {
                     onChange={(value) => setParams({...params, utilizationFactor: parseFloat(value)})}
                     min={0}
                     max={1}
-                    step={0.1}
+                    helperText="Typical range: 0.6 - 0.9"
                   />
 
                   <InputField
@@ -152,7 +153,7 @@ export default function Home() {
                     onChange={(value) => setParams({...params, pue: parseFloat(value)})}
                     min={1}
                     max={2}
-                    step={0.1}
+                    helperText="Typical range: 1.1 - 1.5"
                   />
 
                   <InputField
@@ -163,7 +164,7 @@ export default function Home() {
                     onChange={(value) => setParams({...params, batchSize: parseInt(value)})}
                     min={1}
                     max={128}
-                    step={1}
+                    helperText="Typical range: 1 - 32"
                   />
 
                   <InputField
@@ -174,7 +175,7 @@ export default function Home() {
                     onChange={(value) => setParams({...params, gpuCount: parseInt(value)})}
                     min={1}
                     max={16}
-                    step={1}
+                    helperText="Typical range: 1 - 8"
                   />
                 </div>
               </div>
