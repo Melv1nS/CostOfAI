@@ -23,6 +23,7 @@ export default function Methodology() {
         </div>
 
         <div className="flex flex-col gap-6">
+          {/* First Card - Calculation Process */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 space-y-6 border border-gray-700/50 hover:border-gray-600/50 transition-colors">
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-100 flex items-center gap-2">
@@ -97,7 +98,6 @@ export default function Methodology() {
                       </ul>
                     </div>
                   </div>
-
                   {/* Water Usage Section */}
                   <div>
                     <h4 className="text-lg font-medium text-green-400">3. Estimating Water Usage</h4>
@@ -224,6 +224,53 @@ export default function Methodology() {
             </section>
           </div>
 
+          {/* New Card - Detailed Calculations */}
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 space-y-6 border border-gray-700/50 hover:border-gray-600/50 transition-colors">
+            <section className="space-y-4">
+              <h2 className="text-2xl font-semibold text-gray-100 flex items-center gap-2">
+                <svg className="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                Detailed Calculations
+              </h2>
+
+              <div className="space-y-6">
+                <div className="bg-gray-900/50 rounded-lg p-4">
+                  <h4 className="text-lg font-medium text-yellow-400 mb-3">Energy Calculation Formula</h4>
+                  <div className="space-y-2 text-gray-300">
+                    <p className="font-mono bg-gray-800/50 p-2 rounded">
+                      Energy = ((TDP × Utilization) + (Memory Power × Memory Utilization) + Idle Power) × 
+                      GPU Count × Processing Time × PUE × Batch Factor × Model Factor
+                    </p>
+                    <ul className="list-disc list-inside ml-4 space-y-1 text-sm">
+                      <li>Processing Time = Tokens / (Inference Speed × Efficiency Factors)</li>
+                      <li>Batch Factor = BatchSize^0.8 (empirically derived)</li>
+                      <li>Memory Utilization = min(1.0, Model Memory / Bandwidth)</li>
+                      <li>Uncertainty Range: ±15-30% depending on hardware</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-gray-900/50 rounded-lg p-4">
+                  <h4 className="text-lg font-medium text-yellow-400 mb-3">Water Usage Formula</h4>
+                  <div className="space-y-2 text-gray-300">
+                    <p className="font-mono bg-gray-800/50 p-2 rounded">
+                      Water = Energy × Cooling Factor × Location Factor × Seasonal Factor
+                    </p>
+                    <ul className="list-disc list-inside ml-4 space-y-1 text-sm">
+                      <li>Base Water Usage: 1.5-2.2L/kWh (system dependent)</li>
+                      <li>Location Impact: 0.5x to 1.5x multiplier</li>
+                      <li>Seasonal Variance: 0.6x to 1.4x multiplier</li>
+                      <li>Uncertainty Range: ±20-40% based on conditions</li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+          </div>
+
+          {/* New Card - Detailed Calculations */}
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg p-6 space-y-6 border border-gray-700/50 hover:border-gray-600/50 transition-colors">
             <section className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-100 flex items-center gap-2">
